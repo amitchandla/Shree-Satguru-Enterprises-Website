@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Owner Dashboard | Shree Satguru Enterprises</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+  .dash-header {
+    background: var(--color-navy-900);
+    color: #fff;
+    padding: 22px 0;
+  }
+  .dash-header-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+  .dash-title { display: flex; align-items: center; gap: 12px; }
+  .dash-title h1 { color: #fff; font-size: 1.3rem; text-transform: uppercase; }
+  .dash-title p { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+  .dash-section {
+    background: var(--color-white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-card);
+    padding: 30px;
+    margin-bottom: 28px;
+  }
+  .dash-section h2 { font-size: 1.15rem; text-transform: uppercase; margin-bottom: 6px; }
+  .dash-section .dash-sub { color: var(--color-ink-soft); font-size: 0.88rem; margin-bottom: 20px; }
+  .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .dash-grid { grid-template-columns: 1fr; } }
+  .upload-drop {
+    border: 2px dashed var(--color-line);
+    border-radius: 12px;
+    padding: 26px;
+    text-align: center;
+    color: var(--color-ink-soft);
+    font-size: 0.88rem;
+  }
+  .media-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; margin-top: 18px; }
+  .media-thumb { position: relative; border-radius: 10px; overflow: hidden; aspect-ratio: 1/1; background: var(--color-concrete-200); }
+  .media-thumb img, .media-thumb video { width: 100%; height: 100%; object-fit: cover; }
+  .media-thumb button {
+    position: absolute; top: 6px; right: 6px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(179,38,30,0.9); color: #fff; border: none; font-size: 0.9rem;
+  }
+  .field-note { font-size: 0.8rem; color: var(--color-ink-soft); margin-top: 8px; }
+  .status-msg { font-size: 0.85rem; margin-top: 10px; display: none; }
+  .status-msg.show { display: block; }
+  .status-msg.success { color: var(--color-success); }
+  .status-msg.error { color: #b3261e; }
+</style>
+</head>
+<body>
+
+<div class="demo-banner" id="modeBanner">Checking session&hellip;</div>
+
+<header class="dash-header">
+  <div class="container dash-header-inner">
+    <div class="dash-title">
+      <span class="brand-mark" aria-hidden="true">SSE</span>
+      <div>
+        <h1>Owner Dashboard</h1>
+        <p>Shree Satguru Enterprises</p>
+      </div>
+    </div>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <a href="../index.html" class="btn btn-outline-light btn-small">View Site</a>
+      <button id="logoutBtn" class="btn btn-call btn-small" type="button">Log Out</button>
+    </div>
+  </div>
+</header>
+
+<main class="container" style="padding-top:36px;">
+
+  <!-- Business information (read-only in this build; see README for making it editable via backend) -->
+  <section class="dash-section">
+    <h2>Business Information</h2>
+    <p class="dash-sub">Pulled from the site's fixed business details. Wire this to a backend record if you want it editable here.</p>
+    <div class="dash-grid">
+      <div>
+        <p><strong>Business Name:</strong> Shree Satguru Enterprises</p>
+        <p><strong>Owner:</strong> Mr. Hansraj</p>
+        <p><strong>Address:</strong> Near HP Petrol Pump, Main Bus Stand, Mohanpur, Rewari, Haryana &ndash; 123401</p>
+      </div>
+      <div>
+        <p><strong>Phone:</strong> 94168 88344, 97291 85344</p>
+        <p><strong>WhatsApp:</strong> 94168 88344</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Media management -->
+  <section class="dash-section">
+    <h2>Media Management</h2>
+    <p class="dash-sub">Upload store and product photos or videos for the public gallery. Allowed images: JPG, PNG, WEBP. Allowed videos: MP4, WEBM. Max 8&nbsp;MB per file.</p>
+
+    <div class="upload-drop">
+      <p style="margin-bottom:12px;">Choose photos or videos to add to the gallery</p>
+      <input type="file" id="mediaInput" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm" multiple>
+      <p class="field-note">Files are validated by type and size before anything is added.</p>
+    </div>
+    <p class="status-msg" id="uploadStatus"></p>
+
+    <div class="media-list" id="mediaList"></div>
+  </section>
+
+  <!-- Location management -->
+  <section class="dash-section">
+    <h2>Location Management</h2>
+    <p class="dash-sub">Update the map embed and directions link shown on the public site — no HTML editing required.</p>
+
+    <form id="locationForm">
+      <div class="form-row">
+        <label for="mapEmbedUrl">Google Maps Embed URL</label>
+        <input type="url" id="mapEmbedUrl" placeholder="https://www.google.com/maps?q=...&output=embed">
+        <p class="field-note">In Google Maps: Share &rarr; Embed a map &rarr; copy the URL from the <code>src</code> attribute.</p>
+      </div>
+      <div class="form-row">
+        <label for="directionsUrl">Directions Link</label>
+        <input type="url" id="directionsUrl" placeholder="https://www.google.com/maps/dir/?api=1&destination=...">
+      </div>
+      <button type="submit" class="btn btn-call">Save Location</button>
+      <p class="status-msg" id="locationStatus"></p>
+    </form>
+  </section>
+
+  <div class="owner-alert" style="margin-bottom:40px;">
+    <strong>About this dashboard's storage.</strong> In this build, uploads and the
+    location link are saved to <code>localStorage</code> on this device only — they
+    will show up in the gallery here, in this browser, but will not appear for
+    other visitors until a real backend/storage service is connected. See
+    <code>README.md</code> for the integration points (Supabase Storage is a good
+    fit: authenticated uploads, public read URLs, row-level security for delete
+    permissions).
+  </div>
+
+</main>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

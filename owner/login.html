@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Owner Login | Shree Satguru Enterprises</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+  body { display: flex; min-height: 100vh; flex-direction: column; }
+  .owner-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: var(--color-navy-900);
+    background-image: radial-gradient(rgba(255,255,255,0.06) 2px, transparent 2px);
+    background-size: 30px 30px;
+  }
+  .owner-card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--color-white);
+    border-radius: 18px;
+    padding: 40px 36px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  }
+  .owner-brand { text-align: center; margin-bottom: 22px; }
+  .owner-brand .brand-mark { margin: 0 auto 12px; }
+  .owner-card h1 { font-size: 1.5rem; text-transform: uppercase; text-align: center; margin-bottom: 4px; }
+  .owner-card .sub { text-align: center; color: var(--color-ink-soft); font-size: 0.9rem; margin-bottom: 26px; }
+  .owner-alert {
+    background: rgba(224,97,31,0.08);
+    border: 1px solid rgba(224,97,31,0.3);
+    color: var(--color-orange-700);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 0.82rem;
+    margin-bottom: 22px;
+    line-height: 1.5;
+  }
+  .owner-error {
+    display: none;
+    background: rgba(179,38,30,0.08);
+    border: 1px solid rgba(179,38,30,0.3);
+    color: #b3261e;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    margin-bottom: 18px;
+  }
+  .owner-error.show { display: block; }
+  .back-link { display: block; text-align: center; margin-top: 20px; font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+  .back-link a { color: var(--color-yellow-500); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="demo-banner">
+  DEMO MODE — This login is not yet connected to a real backend. See the notice below and README.md before going live.
+</div>
+
+<div class="owner-wrap">
+  <div class="owner-card">
+    <div class="owner-brand">
+      <span class="brand-mark" aria-hidden="true">SSE</span>
+    </div>
+    <h1>Owner Login</h1>
+    <p class="sub">Shree Satguru Enterprises &middot; Media &amp; Location Manager</p>
+
+    <div class="owner-alert">
+      <strong>Backend integration required.</strong> This form is wired to call
+      <code>/api/owner/login</code>, which does not exist yet in this static build.
+      Password checking must happen on a real server (or a service like Supabase
+      Auth) — never inside this page's JavaScript. See <code>README.md</code> for
+      exactly what to connect.
+    </div>
+
+    <div class="owner-error" id="loginError">Incorrect password, or the login service isn't connected yet.</div>
+
+    <form id="ownerLoginForm">
+      <div class="form-row">
+        <label for="ownerPassword">Owner Password</label>
+        <input type="password" id="ownerPassword" name="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-call btn-block">Log In</button>
+    </form>
+
+    <p style="font-size:0.78rem;color:var(--color-ink-soft);margin-top:18px;text-align:center;">
+      Forgot your password, or setting this up for the first time? Change it as soon as backend auth is connected.
+    </p>
+  </div>
+</div>
+
+<p class="back-link">&larr; <a href="../index.html">Back to website</a></p>
+
+<script src="auth.js"></script>
+</body>
+</html>
